@@ -17,6 +17,30 @@ declare namespace API {
     county: string;
   }
 
+  declare namespace Location {
+    declare namespace Search {
+      export interface Input {
+        city?: string;
+        states?: string[];
+        geoBoundingBox?: {
+          top?: Coordinates;
+          left?: Coordinates;
+          bottom?: Coordinates;
+          right?: Coordinates;
+          bottom_left?: Coordinates;
+          top_left?: Coordinates;
+        };
+        size?: number;
+        from?: number;
+      }
+
+      export interface Results {
+        results: Location[];
+        total: number;
+      }
+    }
+  }
+
   export interface Coordinates {
     lat: number;
     lon: number;
