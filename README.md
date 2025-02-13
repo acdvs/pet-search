@@ -25,5 +25,6 @@
 
 ## Issues
 
-- The documentation for `GET /dogs/search` says `breeds` is an array of strings, but supplying multiple breeds (e.g., `breeds=Basset,Pug`) returns no results. Supplying one breed (e.g., `breeds=Basset`) works as intended.
-- I noticed some special instances of `GET /dogs/search` returning unexpected pagination values. Requesting `/dogs/search?zipCodes=20212` returns two IDs and a `next` value, though the default page size is 25, so there shouldn't be a next page. Requesting the next page (`/dogs/search?zipCodes=20212&size=25&from=25`) returns zero IDs.
+- The documentation for `GET /dogs/search` says `breeds` and `zipCodes` are arrays of strings, but supplying multiple values (e.g., `breeds=Basset,Pug`) returns no results. Supplying one value (e.g., `breeds=Basset`) works as intended.
+- Some special instances of `GET /dogs/search` return unexpected pagination values. Requesting `/dogs/search?zipCodes=20212` returns two IDs and a `next` value, though the default page size is 25, so there shouldn't be a next page. Requesting the next page (`/dogs/search?zipCodes=20212&size=25&from=25`) returns zero IDs.
+- Because of these issues, I was unable to test some features.
