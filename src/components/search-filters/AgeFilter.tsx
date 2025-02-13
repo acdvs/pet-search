@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { useSearchFilters } from '@/lib/state';
+import { DEFAULT_FILTERS, useSearchFilters } from '@/lib/state';
 import { RangeSlider } from '../ui/range-slider';
-import SearchFilter from './SearchFilter';
+import { SearchFilter } from './SearchFilter';
 import { Label } from '../ui/label';
 
 function AgeFilter() {
@@ -16,6 +16,11 @@ function AgeFilter() {
     setMaxAge(values[1]);
   };
 
+  const onReset = () => {
+    setMinAge(DEFAULT_FILTERS.minAge);
+    setMaxAge(DEFAULT_FILTERS.maxAge);
+  };
+
   useEffect(() => setValues([minAge, maxAge]), [minAge, maxAge]);
 
   return (
@@ -23,6 +28,7 @@ function AgeFilter() {
       label="Age"
       selectionText={`${minAge}-${maxAge}`}
       onSubmit={onSubmit}
+      onReset={onReset}
       onOpenChange={() => setValues([minAge, maxAge])}
     >
       <Label>Filter by age</Label>

@@ -1,3 +1,5 @@
+import { X } from 'lucide-react';
+
 import { Button } from '../ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
@@ -6,13 +8,15 @@ function SearchFilter({
   selectionText,
   children,
   onSubmit,
+  onReset,
   onOpenChange,
 }: {
   label: string;
   selectionText?: string;
   children: React.ReactNode;
   onSubmit: () => void;
-  onOpenChange: () => void;
+  onReset: () => void;
+  onOpenChange?: () => void;
 }) {
   const a11yLabel = label.toLowerCase().replaceAll(' ', '-');
   const labelId = `filter-${a11yLabel}-label`;
@@ -37,9 +41,14 @@ function SearchFilter({
       </PopoverTrigger>
       <PopoverContent align="start">
         {children}
-        <Button type="submit" className="w-full h-7 mt-8" onClick={onSubmit}>
-          Update filter
-        </Button>
+        <div className="flex gap-2 mt-8">
+          <Button variant="destructive" className="w-20 h-7" onClick={onReset}>
+            Reset
+          </Button>
+          <Button type="submit" className="w-full h-7" onClick={onSubmit}>
+            Update filter
+          </Button>
+        </div>
       </PopoverContent>
     </Popover>
   );
