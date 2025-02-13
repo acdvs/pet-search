@@ -7,6 +7,7 @@ import { useFetch } from '@/lib/fetch';
 import { useFavorites } from '@/lib/state';
 import PlaceholderContainer from '@/components/PlaceholderContainer';
 import Result from '@/components/Result';
+import Results from './Results';
 
 function MatchResult() {
   const _fetch = useFetch();
@@ -57,13 +58,7 @@ function MatchResult() {
     );
   }
 
-  return (
-    <>
-      <div className="w-full flex justify-center">
-        <Result imagePriority {...dogQuery.data[0]} className="min-w-[450px]" />
-      </div>
-    </>
-  );
+  return <Results data={dogQuery.data} />;
 }
 
 export default MatchResult;
