@@ -18,19 +18,21 @@ import {
 import Result from './Result';
 import PlaceholderContainer from './PlaceholderContainer';
 import { Button } from './ui/button';
+import { useSearchFilters } from '@/lib/state';
 
 function Results<T>({
   query,
   data,
 }: {
-  query: UseInfiniteQueryResult<InfiniteData<void | T, unknown>, Error>;
+  query?: UseInfiniteQueryResult<InfiniteData<void | T, unknown>, Error>;
   data?: API.Dogs.Results | void;
 }) {
   const _fetch = useFetch();
+  const { pageSize } = useSearchFilters();
 
   const zipCodes = data?.map((x) => x.zip_code) || [];
 
-  const locQuery = useQuery({
+  const { data: locData } = useQuery({
     queryKey: ['locations', zipCodes],
     queryFn: () =>
       _fetch<API.Location[]>('/locations', {
@@ -39,7 +41,7 @@ function Results<T>({
       }),
   });
 
-  if (query.isLoading) {
+  if (query?.isLoading) {
     return (
       <PlaceholderContainer>
         <LoaderCircle className="animate-spin" />
@@ -55,30 +57,37 @@ function Results<T>({
     );
   }
 
+  const shouldShowPagination =
+    !query || query.hasNextPage || query.hasPreviousPage;
+
   return (
     <div className="mb-10">
-      <QueryPagination query={query} />
+      {query && shouldShowPagination && <QueryPagination query={query} />}
       <ul className="w-full grid gap-4 grid-cols-1 md:grid-cols-2 my-5">
         {data.map((x, i) => (
           <Result
             key={x.id + new Date().getTime()}
-            city={locQuery.data?.[i].city}
-            state={locQuery.data?.[i].state}
+            city={locData?.[i]?.city}
+            state={locData?.[i]?.state}
             canFavorite
             imagePriority={i < 6}
             {...x}
           />
         ))}
       </ul>
-      <QueryPagination query={query} className="mb-5" />
-      <Button
-        variant="link"
-        size="sm"
-        className="flex mx-auto"
-        onClick={() => window.scrollTo({ top: 0 })}
-      >
-        Back to top
-      </Button>
+      {query && shouldShowPagination && (
+        <QueryPagination query={query} className="mb-5" />
+      )}
+      {data.length > 6 && (
+        <Button
+          variant="link"
+          size="sm"
+          className="flex mx-auto"
+          onClick={() => window.scrollTo({ top: 0 })}
+        >
+          Back to top
+        </Button>
+      )}
     </div>
   );
 }
@@ -95,14 +104,20 @@ function QueryPagination<T>({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => query.fetchPreviousPage()}
-            disabled={!query.hasPreviousPage}
+            onClick={() => {
+              query.fetchPreviousPage();
+              window.scrollTo({ top: 0 });
+            }}
+            disabled={!query.hasPreviousPage || query.isFetching}
           />
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            onClick={() => query.fetchNextPage()}
-            disabled={!query.hasNextPage}
+            onClick={() => {
+              query.fetchNextPage();
+              window.scrollTo({ top: 0 });
+            }}
+            disabled={!query.hasNextPage || query.isFetching}
           />
         </PaginationItem>
       </PaginationContent>
