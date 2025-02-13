@@ -43,7 +43,7 @@ function BreedsFilter() {
 
   return (
     <SearchFilter
-      label="Breeds"
+      label="Breed"
       selectionText={selectionText}
       onSubmit={() => setBreeds(selectedList)}
       onReset={() => setBreeds(DEFAULT_FILTERS.breeds)}
