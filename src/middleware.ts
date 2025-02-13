@@ -9,11 +9,11 @@ export function middleware(req: NextRequest) {
   // const res = new NextResponse();
   // res.cookies.
 
-  // if (authToken && req.nextUrl.pathname === '/') {
-  //   return NextResponse.redirect(new URL('/search', req.url));
-  // } else if (!authToken && req.nextUrl.pathname !== '/') {
-  //   return NextResponse.redirect(new URL('/', req.url));
-  // }
+  if (authToken && req.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/search', req.url));
+  } else if (!authToken && req.nextUrl.pathname !== '/') {
+    return NextResponse.redirect(new URL('/', req.url));
+  }
 
   return NextResponse.next();
 }
