@@ -75,7 +75,7 @@ function LoginForm({ className }: { className?: string }) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="John Doe" required {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -88,7 +88,12 @@ function LoginForm({ className }: { className?: string }) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="my@email.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="my@email.com"
+                  required
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
