@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Plus, X } from 'lucide-react';
 
 import { useFetch } from '@/lib/fetch';
-import { useSearchFilters } from '@/lib/state';
+import { DEFAULT_FILTERS, useSearchFilters } from '@/lib/state';
 import {
   Select,
   SelectContent,
@@ -15,7 +15,7 @@ import {
 } from '../ui/select';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
-import SearchFilter from './SearchFilter';
+import { FilteredItem, SearchFilter } from './SearchFilter';
 
 function BreedsFilter() {
   const _fetch = useFetch();
@@ -46,6 +46,7 @@ function BreedsFilter() {
       label="Breeds"
       selectionText={selectionText}
       onSubmit={() => setBreeds(selectedList)}
+      onReset={() => setBreeds(DEFAULT_FILTERS.breeds)}
       onOpenChange={() => setSelectedList(breeds)}
     >
       <Label>Filter by breed</Label>
@@ -85,26 +86,6 @@ function BreedsFilter() {
         </div>
       )}
     </SearchFilter>
-  );
-}
-
-function FilteredItem({
-  value,
-  remove,
-}: {
-  value: string;
-  remove: (x: string) => void;
-}) {
-  return (
-    <div className="flex items-center pl-3 pr-2 text-sm bg-foreground text-background rounded-full cursor-default group">
-      <span>{value}</span>
-      <X
-        className="delete h-3 stroke-2 pl-1 cursor-pointer group-hover:stroke-3 group-hover:stroke-red-500 "
-        onClick={() => remove(value)}
-      >
-        x
-      </X>
-    </div>
   );
 }
 
