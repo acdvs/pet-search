@@ -1,8 +1,13 @@
 'use client';
 
-import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  UseInfiniteQueryResult,
+  useQuery,
+} from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
 
+import { useFetch } from '@/lib/fetch';
 import {
   Pagination,
   PaginationContent,
@@ -21,6 +26,19 @@ function Results<T>({
   query: UseInfiniteQueryResult<InfiniteData<void | T, unknown>, Error>;
   data?: API.Dogs.Results | void;
 }) {
+  const _fetch = useFetch();
+
+  const zipCodes = data?.map((x) => x.zip_code) || [];
+
+  const locQuery = useQuery({
+    queryKey: ['locations', zipCodes],
+    queryFn: () =>
+      _fetch<API.Location[]>('/locations', {
+        method: 'POST',
+        body: zipCodes,
+      }),
+  });
+
   if (query.isLoading) {
     return (
       <PlaceholderContainer>
@@ -44,6 +62,8 @@ function Results<T>({
         {data.map((x, i) => (
           <Result
             key={x.id + new Date().getTime()}
+            city={locQuery.data?.[i].city}
+            state={locQuery.data?.[i].state}
             canFavorite
             imagePriority={i < 6}
             {...x}

@@ -13,9 +13,13 @@ function Result({
   breed,
   age,
   zip_code,
+  city,
+  state,
   img,
   id,
 }: {
+  city?: string;
+  state?: string;
   canFavorite?: boolean;
   imagePriority: boolean;
   className?: string;
@@ -40,7 +44,7 @@ function Result({
         className,
         'flex gap-5 border-2 border-muted rounded-md p-4'
       )}
-      aria-labelledby={`${id}-name ${id}-breed ${id}-age ${id}-zipcode`}
+      aria-labelledby={`${id}-name ${id}-breed ${id}-age ${id}-location`}
     >
       <div className="relative aspect-square size-[150px]">
         <Image
@@ -88,8 +92,8 @@ function Result({
         <p id={`${id}-age`} className="py-1 px-3">
           {age} years old
         </p>
-        <p id={`${id}-zipcode`} className="py-1 px-3 rounded-sm bg-muted/60">
-          Zip code {zip_code}
+        <p id={`${id}-location`} className="py-1 px-3 rounded-sm bg-muted/60">
+          {city}, {state}
         </p>
       </div>
     </li>
