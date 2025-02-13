@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: oklch(23.59% 0.028 269);
+  --color-foreground: oklch(98.48% 0 0);
+
+  --color-card: oklch(14.05% 0.0044 285.82);
+  --color-card-foreground: oklch(98.48% 0 0);
+
+  --color-popover: oklch(from var(--color-background) 0.2 c h);
+  --color-popover-foreground: oklch(98.48% 0 0);
+
+  --color-primary: oklch(98.48% 0 0);
+  --color-primary-foreground: oklch(21.03% 0.0059 285.88);
+
+  --color-secondary: oklch(27.41% 0.0055 286.03);
+  --color-secondary-foreground: oklch(98.48% 0 0);
+
+  --color-muted: oklch(from var(--color-background) 0.35 c h);
+  --color-muted-foreground: oklch(from var(--color-foreground) 0.75 c h);
+
+  --color-accent: oklch(from var(--color-background) 0.35 c h);
+  --color-accent-foreground: oklch(98.48% 0 0);
+
+  --color-destructive: oklch(39.59% 0.1331 25.72);
+  --color-destructive-foreground: oklch(98.48% 0 0);
+
+  --color-border: oklch(27.41% 0.0055 286.03);
+  --color-input: oklch(27.41% 0.0055 286.03);
+  --color-ring: oklch(87.09% 0.0055 286.29);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    font-family: var(--font-open-sans);
+    @apply bg-background text-foreground;
+  }
+
+  h1 {
+    font-family: var(--font-cherry-bomb);
+    @apply text-4xl leading-6 mb-10;
+  }
+
+  h2 {
+    @apply text-2xl mb-5 font-bold;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
