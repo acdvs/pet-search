@@ -94,19 +94,4 @@ function SearchFilters({ className }: { className?: string }) {
   );
 }
 
-function PageSizeButton({ value }: { value: number }) {
-  const { pageSize, setPageSize } = useSearchFilters();
-
-  return (
-    <Button
-      variant="link"
-      className="px-2"
-      disabled={pageSize === value}
-      onClick={() => setPageSize(value)}
-    >
-      {value}
-    </Button>
-  );
-}
-
 export default SearchFilters;
