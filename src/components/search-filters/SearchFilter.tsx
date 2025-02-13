@@ -42,7 +42,7 @@ function SearchFilter({
       <PopoverContent align="start">
         {children}
         <div className="flex gap-2 mt-8">
-          <Button variant="destructive" className="w-20 h-7" onClick={onReset}>
+          <Button variant="outline" className="w-20 h-7" onClick={onReset}>
             Reset
           </Button>
           <Button type="submit" className="w-full h-7" onClick={onSubmit}>
