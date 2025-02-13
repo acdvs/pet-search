@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Plus, X } from 'lucide-react';
 
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import { useSearchFilters } from '@/lib/state';
 import {
   Select,
@@ -18,13 +18,15 @@ import { Button } from '../ui/button';
 import SearchFilter from './SearchFilter';
 
 function BreedsFilter() {
+  const _fetch = useFetch();
+
   const { breeds, setBreeds } = useSearchFilters();
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedList, setSelectedList] = useState(breeds);
 
   const { data: options } = useQuery({
     queryKey: ['breeds'],
-    queryFn: () => cfetch<API.Dogs.Breeds.Results>('/dogs/breeds'),
+    queryFn: () => _fetch<API.Dogs.Breeds.Results>('/dogs/breeds'),
   });
 
   const onAdd = () => {

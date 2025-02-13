@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import { useUser } from '@/lib/state';
 import {
   Form,
@@ -28,8 +28,10 @@ const schema = z.object({
 type TSchema = z.infer<typeof schema>;
 
 function LoginForm({ className }: { className?: string }) {
+  const _fetch = useFetch();
   const { setName } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const form = useForm<TSchema>({
@@ -44,7 +46,7 @@ function LoginForm({ className }: { className?: string }) {
     setIsLoading(true);
 
     try {
-      await cfetch('/auth/login', {
+      await _fetch('/auth/login', {
         method: 'POST',
         body: data,
       });

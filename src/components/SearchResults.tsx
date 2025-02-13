@@ -2,11 +2,12 @@
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import { useSearchFilters, useSorting } from '@/lib/state';
 import Results from './Results';
 
 function SearchResults() {
+  const _fetch = useFetch();
   const { breeds, minAge, maxAge, zipCodes, pageSize } = useSearchFilters();
   const { breed: breedSort } = useSorting();
 
@@ -16,7 +17,7 @@ function SearchResults() {
       { breeds, minAge, maxAge, zipCodes, pageSize, breedSort },
     ],
     queryFn: ({ pageParam }) =>
-      cfetch<API.Dogs.Search.Results>('/dogs/search', {
+      _fetch<API.Dogs.Search.Results>('/dogs/search', {
         params: {
           breeds: breeds.join(','),
           ageMin: minAge,
@@ -50,7 +51,7 @@ function SearchResults() {
       currentFrom,
     ],
     queryFn: () =>
-      cfetch<API.Dogs.Results>('/dogs', {
+      _fetch<API.Dogs.Results>('/dogs', {
         method: 'POST',
         body: currentPage?.resultIds,
       }),

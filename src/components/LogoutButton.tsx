@@ -2,15 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import { Button } from '@/components/ui/button';
 
 function LogoutButton() {
+  const _fetch = useFetch();
   const router = useRouter();
 
   const onClick = async () => {
     try {
-      await cfetch('/auth/logout', {
+      await _fetch('/auth/logout', {
         method: 'POST',
       });
 

@@ -3,19 +3,20 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { useFavorites } from '@/lib/state';
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import Results from '@/components/Results';
 import PlaceholderContainer from '@/components/PlaceholderContainer';
 
 const PAGE_SIZE = 10;
 
 function FavoriteResults() {
+  const _fetch = useFetch();
   const { favorites } = useFavorites();
 
   const query = useInfiniteQuery({
     queryKey: ['favorites', favorites],
     queryFn: ({ pageParam }) =>
-      cfetch<API.Dogs.Results>('/dogs', {
+      _fetch<API.Dogs.Results>('/dogs', {
         method: 'POST',
         body: favorites.slice(pageParam, pageParam + PAGE_SIZE),
       }),

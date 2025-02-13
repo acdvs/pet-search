@@ -3,18 +3,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
 
-import { cfetch } from '@/lib/fetch';
+import { useFetch } from '@/lib/fetch';
 import { useFavorites } from '@/lib/state';
 import PlaceholderContainer from '@/components/PlaceholderContainer';
 import Result from '@/components/Result';
 
 function MatchResult() {
+  const _fetch = useFetch();
   const { favorites } = useFavorites();
 
   const matchQuery = useQuery({
     queryKey: ['match', 'favorites', favorites],
     queryFn: () =>
-      cfetch<API.Dogs.Match.Results>('/dogs/match', {
+      _fetch<API.Dogs.Match.Results>('/dogs/match', {
         method: 'POST',
         body: favorites,
       }),
@@ -24,7 +25,7 @@ function MatchResult() {
   const dogQuery = useQuery({
     queryKey: ['match', 'dog', matchQuery.data?.match],
     queryFn: () =>
-      cfetch<API.Dogs.Results>('/dogs', {
+      _fetch<API.Dogs.Results>('/dogs', {
         method: 'POST',
         body: [matchQuery.data?.match],
       }),
