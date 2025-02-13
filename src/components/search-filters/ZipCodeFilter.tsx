@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, X } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
-import { useSearchFilters } from '@/lib/state';
+import { DEFAULT_FILTERS, useSearchFilters } from '@/lib/state';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
@@ -31,6 +31,7 @@ function ZipCodeFilter() {
       label="Zip Codes"
       selectionText={selectionText}
       onSubmit={() => setZipCodes(selectedList)}
+      onReset={() => setZipCodes(DEFAULT_FILTERS.zipCodes)}
       onOpenChange={() => setSelectedList(zipCodes)}
     >
       <Label>Filter by zip code</Label>

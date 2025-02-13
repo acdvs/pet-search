@@ -15,7 +15,7 @@ type FetchOptions = Omit<RequestInit, 'body'> & {
   body?: Record<string, unknown> | unknown[];
 };
 
-export function useFetch<T>() {
+export function useFetch() {
   const router = useRouter();
 
   return async function <T>(endpoint: string, options?: FetchOptions) {

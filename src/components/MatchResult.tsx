@@ -6,7 +6,6 @@ import { LoaderCircle } from 'lucide-react';
 import { useFetch } from '@/lib/fetch';
 import { useFavorites } from '@/lib/state';
 import PlaceholderContainer from '@/components/PlaceholderContainer';
-import Result from '@/components/Result';
 import Results from './Results';
 
 function MatchResult() {

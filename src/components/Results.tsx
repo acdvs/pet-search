@@ -18,7 +18,6 @@ import {
 import Result from './Result';
 import PlaceholderContainer from './PlaceholderContainer';
 import { Button } from './ui/button';
-import { useSearchFilters } from '@/lib/state';
 
 function Results<T>({
   query,
@@ -28,7 +27,6 @@ function Results<T>({
   data?: API.Dogs.Results | void;
 }) {
   const _fetch = useFetch();
-  const { pageSize } = useSearchFilters();
 
   const zipCodes = data?.map((x) => x.zip_code) || [];
 

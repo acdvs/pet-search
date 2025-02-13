@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Plus, X } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 import { useFetch } from '@/lib/fetch';
 import { DEFAULT_FILTERS, useSearchFilters } from '@/lib/state';

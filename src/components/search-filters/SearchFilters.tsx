@@ -3,7 +3,6 @@
 import { useSearchFilters, useSorting, DEFAULT_FILTERS } from '@/lib/state';
 import BreedsFilter from './BreedsFilter';
 import AgeFilter from './AgeFilter';
-import ZipCodeFilter from './ZipCodeFilter';
 import CityStateFilter from './CityStateFilter';
 import { Button } from '../ui/button';
 import {
