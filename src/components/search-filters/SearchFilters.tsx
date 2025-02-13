@@ -4,6 +4,7 @@ import { useSearchFilters, useSorting, DEFAULT_FILTERS } from '@/lib/state';
 import BreedsFilter from './BreedsFilter';
 import AgeFilter from './AgeFilter';
 import ZipCodeFilter from './ZipCodeFilter';
+import CityStateFilter from './CityStateFilter';
 import { Button } from '../ui/button';
 import {
   Select,
@@ -39,7 +40,8 @@ function SearchFilters({ className }: { className?: string }) {
         <div className="space-x-3">
           <BreedsFilter />
           <AgeFilter />
-          <ZipCodeFilter />
+          <CityStateFilter />
+          {/* <ZipCodeFilter /> */}
           {hasFilters && (
             <Button
               variant="link"
