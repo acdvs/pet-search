@@ -24,7 +24,6 @@ function Result({
   imagePriority: boolean;
   className?: string;
 } & API.Dog) {
-  const [imageLoading, setImageLoading] = useState(true);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   const onClickFavorite = () => {
@@ -54,12 +53,8 @@ function Result({
           alt={`Photo of ${name}`}
           placeholder="empty"
           priority={imagePriority}
-          onLoad={() => setImageLoading(false)}
           className="rounded object-cover aspect-square"
         />
-        {imageLoading && (
-          <div className="absolute top-0 rounded size-full bg-muted-foreground/40 animate-pulse" />
-        )}
       </div>
       <div className="grow">
         <div className="flex justify-between mb-5">
@@ -93,7 +88,7 @@ function Result({
           {age} years old
         </p>
         <p id={`${id}-location`} className="py-1 px-3 rounded-sm bg-muted/60">
-          {city}, {state}
+          {city && state ? `${city}, ${state}` : `Zip code ${zip_code}`}
         </p>
       </div>
     </li>
